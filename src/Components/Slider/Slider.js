@@ -11,23 +11,34 @@ export default function Slider() {
   });
   const nextSlide = () => {
     // Si l'index est strictement différent de la longeur du tableau de dataSlider
-    if (slideAnim.index !== dataSlider.length) {
-
-      setSlideAnim({ index: slideAnim.index + 1, 
-      inProgress: true });
-
-    } 
-    
-    else if (slideAnim.index === dataSlider.length) {
-
+    if (slideAnim.index !== dataSlider.length && !slideAnim.inProgress) {
+      setSlideAnim({ index: slideAnim.index + 1, inProgress: true });
+      setTimeout(() => {
+        setSlideAnim({ index: slideAnim.index + 1, inProgress: false });
+      }, 500);
+    } else if (slideAnim.index === dataSlider.length && !slideAnim.inProgress) {
       setSlideAnim({ index: 1, inProgress: true });
-
+      setTimeout(() => {
+        setSlideAnim({ index: 1, inProgress: false });
+      }, 500);
     }
   };
   const prevSlide = () => {
-     if (slideAnim.index !== dataSlider.length) {
-       setSlideAnim({ index: slideAnim.index - 1, inProgress: true });
-     }
+    if (slideAnim.index !== 1 && !slideAnim.inProgress) {
+      setSlideAnim({ index: slideAnim.index - 1, inProgress: true });
+      setTimeout(() => {
+        setSlideAnim({ index: slideAnim.index - 1, inProgress: false });
+      }, 500);
+    } else if (slideAnim.index === 1 && !slideAnim.inProgress) {
+      setSlideAnim({ index: 5, inProgress: true });
+      setTimeout(() => {
+        setSlideAnim({ index: 5, inProgress: false });
+      }, 500);
+    }
+  };
+
+  const moveDot = (index) => {
+    setSlideAnim({ index: index, inProgress: false });
   };
 
   return (
@@ -54,6 +65,19 @@ export default function Slider() {
 
       <BtnSlider moveSlide={nextSlide} direction={"next"} />
       <BtnSlider moveSlide={prevSlide} direction={"prev"} />
+
+      <div className="container-dots">
+        {Array.from({ length: 5 }).map((item, index) => {
+          return (
+            <button
+              className={slideAnim.index === index + 1 ? "dot active" : "dot"}
+              onClick={() => {
+                moveDot(index + 1);
+              }}
+            ></button>
+          );
+        })}
+      </div>
     </div>
   );
 }
