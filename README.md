@@ -1,6 +1,6 @@
 # Projet-Slider
 
-Ceci est un projet permettant d'avoir un slider (un defillement d'image)
+Ceci est un projet permettant d'avoir un slider (un defillement d'images)
 
 Le but ici étant d'avoir une série d'images qui défilent en cliquant sur les flèches directionnelles ou en les selectionnant via les points (dots) en dessous.
 
